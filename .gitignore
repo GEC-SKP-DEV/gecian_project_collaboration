@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# open-next / Cloudflare artifacts
+/.open-next/
+
 # production
 /build
 
@@ -35,6 +38,10 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# Playwright
+/playwright-report/
+/test-results/
 
 # typescript
 *.tsbuildinfo
