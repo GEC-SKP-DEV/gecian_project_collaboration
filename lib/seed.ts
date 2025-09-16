@@ -11,7 +11,7 @@ import {
 async function seed() {
   try {
     // ---------------- Insert Dummy Users ----------------
-    const insertedUsers = await db.insert(users).values([
+    await db.insert(users).values([
       { uid: "student1", userRole: "student" },
       { uid: "student2", userRole: "student" },
       { uid: "student3", userRole: "student" },
@@ -22,47 +22,54 @@ async function seed() {
     const insertedCategories = await db
       .insert(categories)
       .values([
-        { category: "Project Type" },       // id will be returned
+        { category: "Project Type" },
         { category: "Department" },
         { category: "Programming Language" },
+        { category: "Year of Submission" },
+        { category: "Domain" },
       ])
       .returning({ id: categories.categoryId, name: categories.category });
-    console.log("✅ Categories inserted", insertedCategories);
+    console.log("✅ Categories inserted");
+
+    // Map category names to IDs
+    const catId = (name: string) => insertedCategories.find(c => c.name === name)!.id;
 
     // ---------------- Insert Category Option Values ----------------
-    // Use dynamic IDs from insertedCategories
-    const projectTypeId = insertedCategories.find(c => c.name === "Project Type")!.id;
-    const departmentId = insertedCategories.find(c => c.name === "Department")!.id;
-    const languageId = insertedCategories.find(c => c.name === "Programming Language")!.id;
-
     const insertedOptions = await db
       .insert(categoryOptionValues)
       .values([
         // Project Type
-        { optionName: "Web Development", categoryId: projectTypeId },
-        { optionName: "Android Development", categoryId: projectTypeId },
-        { optionName: "IoT", categoryId: projectTypeId },
-        { optionName: "AI/ML", categoryId: projectTypeId },
+        { optionName: "Web Development", categoryId: catId("Project Type") },
+        { optionName: "Android Development", categoryId: catId("Project Type") },
+        { optionName: "IoT", categoryId: catId("Project Type") },
+        { optionName: "AI/ML", categoryId: catId("Project Type") },
 
         // Departments
-        { optionName: "CSE", categoryId: departmentId },
-        { optionName: "ECE", categoryId: departmentId },
-        { optionName: "MECH", categoryId: departmentId },
-        { optionName: "CIVIL", categoryId: departmentId },
-        { optionName: "IT", categoryId: departmentId },
-        { optionName: "EEE", categoryId: departmentId },
+        { optionName: "CSE", categoryId: catId("Department") },
+        { optionName: "ECE", categoryId: catId("Department") },
+        { optionName: "MECH", categoryId: catId("Department") },
+        { optionName: "CIVIL", categoryId: catId("Department") },
+        { optionName: "IT", categoryId: catId("Department") },
+        { optionName: "EEE", categoryId: catId("Department") },
 
         // Programming Languages
-        { optionName: "Python", categoryId: languageId },
-        { optionName: "Java", categoryId: languageId },
-        { optionName: "C++", categoryId: languageId },
-        { optionName: "JavaScript", categoryId: languageId },
-        { optionName: "Kotlin", categoryId: languageId },
+        { optionName: "Python", categoryId: catId("Programming Language") },
+        { optionName: "Java", categoryId: catId("Programming Language") },
+        { optionName: "C++", categoryId: catId("Programming Language") },
+        { optionName: "JavaScript", categoryId: catId("Programming Language") },
+        { optionName: "Kotlin", categoryId: catId("Programming Language") },
+
+        // Year of Submission
+        { optionName: "2025", categoryId: catId("Year of Submission") },
+
+        // Domain
+        { optionName: "Education", categoryId: catId("Domain") },
+        { optionName: "Agriculture", categoryId: catId("Domain") },
+        { optionName: "Campus", categoryId: catId("Domain") },
       ])
       .returning({ id: categoryOptionValues.optionId, name: categoryOptionValues.optionName });
-    console.log("✅ Category option values inserted", insertedOptions);
+    console.log("✅ Category option values inserted");
 
-    // Helper to get option ID by name
     const getOptionId = (name: string) => insertedOptions.find(o => o.name === name)!.id;
 
     // ---------------- Insert Projects ----------------
@@ -104,24 +111,30 @@ async function seed() {
         },
       ])
       .returning({ id: projects.projectId, name: projects.projectName });
-    console.log("✅ Projects inserted successfully", insertedProjects);
+    console.log("✅ Projects inserted");
 
     // ---------------- Link Projects with Options ----------------
     const projectOptionData = [
       // AI Chatbot
-      { projectId: insertedProjects[0].id, categoryId: projectTypeId, optionId: getOptionId("AI/ML") },
-      { projectId: insertedProjects[0].id, categoryId: departmentId, optionId: getOptionId("CSE") },
-      { projectId: insertedProjects[0].id, categoryId: languageId, optionId: getOptionId("Python") },
+      { projectId: insertedProjects[0].id, categoryId: catId("Project Type"), optionId: getOptionId("AI/ML") },
+      { projectId: insertedProjects[0].id, categoryId: catId("Department"), optionId: getOptionId("CSE") },
+      { projectId: insertedProjects[0].id, categoryId: catId("Programming Language"), optionId: getOptionId("Python") },
+      { projectId: insertedProjects[0].id, categoryId: catId("Year of Submission"), optionId: getOptionId("2025") },
+      { projectId: insertedProjects[0].id, categoryId: catId("Domain"), optionId: getOptionId("Education") },
 
       // Smart Irrigation
-      { projectId: insertedProjects[1].id, categoryId: projectTypeId, optionId: getOptionId("IoT") },
-      { projectId: insertedProjects[1].id, categoryId: departmentId, optionId: getOptionId("MECH") },
-      { projectId: insertedProjects[1].id, categoryId: languageId, optionId: getOptionId("Java") },
+      { projectId: insertedProjects[1].id, categoryId: catId("Project Type"), optionId: getOptionId("IoT") },
+      { projectId: insertedProjects[1].id, categoryId: catId("Department"), optionId: getOptionId("MECH") },
+      { projectId: insertedProjects[1].id, categoryId: catId("Programming Language"), optionId: getOptionId("Java") },
+      { projectId: insertedProjects[1].id, categoryId: catId("Year of Submission"), optionId: getOptionId("2025") },
+      { projectId: insertedProjects[1].id, categoryId: catId("Domain"), optionId: getOptionId("Agriculture") },
 
       // Campus Navigation
-      { projectId: insertedProjects[2].id, categoryId: projectTypeId, optionId: getOptionId("Android Development") },
-      { projectId: insertedProjects[2].id, categoryId: departmentId, optionId: getOptionId("CSE") },
-      { projectId: insertedProjects[2].id, categoryId: languageId, optionId: getOptionId("Kotlin") },
+      { projectId: insertedProjects[2].id, categoryId: catId("Project Type"), optionId: getOptionId("Android Development") },
+      { projectId: insertedProjects[2].id, categoryId: catId("Department"), optionId: getOptionId("CSE") },
+      { projectId: insertedProjects[2].id, categoryId: catId("Programming Language"), optionId: getOptionId("Kotlin") },
+      { projectId: insertedProjects[2].id, categoryId: catId("Year of Submission"), optionId: getOptionId("2025") },
+      { projectId: insertedProjects[2].id, categoryId: catId("Domain"), optionId: getOptionId("Campus") },
     ];
 
     await db.insert(projectOptions).values(projectOptionData);
