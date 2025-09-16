@@ -34,7 +34,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link href="/">
           <h1 className="text-2xl font-bold text-gray-900 tracking-tight hover:opacity-90 transition-opacity">
-            Gecian_Hostel
+            Gecian_Collab 
           </h1>
         </Link>
 

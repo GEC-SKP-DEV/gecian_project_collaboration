@@ -30,15 +30,15 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
               setUserRole(role);
             } else {
               setIsAuthenticated(false);
-              router.push('/auth/Login');
+              router.push('/login');
             }
           } else {
             setIsAuthenticated(false);
-            router.push('/auth/Login');
+            router.push('/login');
           }
         } else {
           setIsAuthenticated(false);
-          router.push('/auth/Login');
+          router.push('/login');
         }
         setLoading(false);
       });

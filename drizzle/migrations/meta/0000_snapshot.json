@@ -1,5 +1,5 @@
 {
-  "id": "a5fa4e3f-930c-4bab-9e83-94283f0b8af1",
+  "id": "67c7c809-53b4-46fa-8d9c-8f7fdd8f08ff",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -19,6 +19,82 @@
           "type": "varchar(100)",
           "primaryKey": false,
           "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.category_option_values": {
+      "name": "category_option_values",
+      "schema": "",
+      "columns": {
+        "option_id": {
+          "name": "option_id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "option_name": {
+          "name": "option_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category_id": {
+          "name": "category_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "category_option_values_category_id_categories_category_id_fk": {
+          "name": "category_option_values_category_id_categories_category_id_fk",
+          "tableFrom": "category_option_values",
+          "tableTo": "categories",
+          "columnsFrom": [
+            "category_id"
+          ],
+          "columnsTo": [
+            "category_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.project_options": {
+      "name": "project_options",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "project_id": {
+          "name": "project_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "category_id": {
+          "name": "category_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
         },
         "option_id": {
           "name": "option_id",
@@ -28,82 +104,47 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.department": {
-      "name": "department",
-      "schema": "",
-      "columns": {
-        "option_id": {
-          "name": "option_id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
+      "foreignKeys": {
+        "project_options_project_id_projects_project_id_fk": {
+          "name": "project_options_project_id_projects_project_id_fk",
+          "tableFrom": "project_options",
+          "tableTo": "projects",
+          "columnsFrom": [
+            "project_id"
+          ],
+          "columnsTo": [
+            "project_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
         },
-        "option_name": {
-          "name": "option_name",
-          "type": "varchar(100)",
-          "primaryKey": false,
-          "notNull": false
+        "project_options_category_id_categories_category_id_fk": {
+          "name": "project_options_category_id_categories_category_id_fk",
+          "tableFrom": "project_options",
+          "tableTo": "categories",
+          "columnsFrom": [
+            "category_id"
+          ],
+          "columnsTo": [
+            "category_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "project_options_option_id_category_option_values_option_id_fk": {
+          "name": "project_options_option_id_category_option_values_option_id_fk",
+          "tableFrom": "project_options",
+          "tableTo": "category_option_values",
+          "columnsFrom": [
+            "option_id"
+          ],
+          "columnsTo": [
+            "option_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
         }
       },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.domain": {
-      "name": "domain",
-      "schema": "",
-      "columns": {
-        "option_id": {
-          "name": "option_id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "option_name": {
-          "name": "option_name",
-          "type": "varchar(100)",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.project_type": {
-      "name": "project_type",
-      "schema": "",
-      "columns": {
-        "option_id": {
-          "name": "option_id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "option_name": {
-          "name": "option_name",
-          "type": "varchar(100)",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},
@@ -147,13 +188,37 @@
         },
         "created_by_uid": {
           "name": "created_by_uid",
-          "type": "integer",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false
         },
-        "category_id": {
-          "name": "category_id",
-          "type": "integer",
+        "custom_domain": {
+          "name": "custom_domain",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contact_instagram": {
+          "name": "contact_instagram",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contact_linkedin": {
+          "name": "contact_linkedin",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contact_email": {
+          "name": "contact_email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contact_whatsapp": {
+          "name": "contact_whatsapp",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false
         }
@@ -169,19 +234,6 @@
           ],
           "columnsTo": [
             "uid"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "projects_category_id_categories_category_id_fk": {
-          "name": "projects_category_id_categories_category_id_fk",
-          "tableFrom": "projects",
-          "tableTo": "categories",
-          "columnsFrom": [
-            "category_id"
-          ],
-          "columnsTo": [
-            "category_id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -250,7 +302,7 @@
       "columns": {
         "uid": {
           "name": "uid",
-          "type": "serial",
+          "type": "varchar(255)",
           "primaryKey": true,
           "notNull": true
         },
@@ -259,31 +311,6 @@
           "type": "varchar(50)",
           "primaryKey": false,
           "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.year_of_submission": {
-      "name": "year_of_submission",
-      "schema": "",
-      "columns": {
-        "option_id": {
-          "name": "option_id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "option_name": {
-          "name": "option_name",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": false
         }
       },
       "indexes": {},

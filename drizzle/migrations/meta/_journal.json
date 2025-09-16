@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1749747676980,
-      "tag": "0000_initial_schema",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1749747747002,
-      "tag": "0001_initial_schema",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1749889224359,
-      "tag": "0002_steady_ricochet",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1749891039819,
-      "tag": "0003_fixed_warpath",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1749895855626,
-      "tag": "0004_opposite_avengers",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1752940701103,
-      "tag": "0005_slow_excalibur",
+      "when": 1758032247653,
+      "tag": "0000_square_hemingway",
       "breakpoints": true
     }
   ]

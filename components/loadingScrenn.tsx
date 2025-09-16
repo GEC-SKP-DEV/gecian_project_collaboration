@@ -28,7 +28,7 @@ const LoadingScreen = () => {
               secAnim ? "move-left" : " "
             }`}
           >
-            Project
+            Gecian
           </span>
           {"  "}
           <span
@@ -36,14 +36,14 @@ const LoadingScreen = () => {
               secAnim ? "move-right" : " "
             }`}
           >
-            Archi
+            Coll
             <span className={`rect-i  ${secAnim ? "move-right-i" : ""}`}>
               <span
                 className="dot-i"
                 onAnimationEnd={handleJumpAnimation}
               ></span>
             </span>
-            ve
+            ab
           </span>
           <span className={`dot-2 ${secAnim? "bounce":" "}`}></span>
         </h1>
