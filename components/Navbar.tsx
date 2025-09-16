@@ -34,21 +34,29 @@ const Navbar = () => {
         {/* Logo */}
         <Link href="/">
           <h1 className="text-2xl font-bold text-gray-900 tracking-tight hover:opacity-90 transition-opacity">
-            Project Archive
+            Gecian_Hostel
           </h1>
         </Link>
 
         {/* Right Section */}
         <div className="flex items-center space-x-4">
           {user ? (
-            <Link href="/profile" className="flex items-center space-x-2 group">
-              <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center text-lg font-bold">
-                {(user.displayName || user.email || "U")[0].toUpperCase()}
-              </div>
-              <span className="hidden sm:inline text-sm font-medium text-gray-700 group-hover:text-blue-600 transition">
-                {user.displayName || user.email || "User"}
-              </span>
-            </Link>
+            <div className="flex items-center space-x-4">
+              <Link href="/profile" className="flex items-center space-x-2 group">
+                <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center text-lg font-bold">
+                  {(user.displayName || user.email || "U")[0].toUpperCase()}
+                </div>
+                <span className="hidden sm:inline text-sm font-medium text-gray-700 group-hover:text-blue-600 transition">
+                  {user.displayName || user.email || "User"}
+                </span>
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="px-5 py-2 rounded-full bg-red-600 text-white font-medium text-sm hover:bg-red-700 transition shadow-md hover:shadow-lg"
+              >
+                Logout
+              </button>
+            </div>
           ) : (
             <Link href="/login">
               <button className="px-5 py-2 rounded-full bg-black text-white font-medium text-sm hover:bg-gray-800 transition shadow-md hover:shadow-lg">
