@@ -141,9 +141,7 @@ export default function AuthPage() {
         <p className="text-center text-blue-500 text-sm mt-6 font-medium">
           Secure authentication powered by Google
         </p>
-        <p className="text-center text-orange-500 text-sm mt-6 font-medium">
-          Sign in with pkd skp mail
-        </p>
+        
       </div>
     </div>
   );
