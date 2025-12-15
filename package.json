@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev ",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -19,7 +19,7 @@
     "e2e": "playwright test",
     "e2e:headed": "playwright test --headed",
     "e2e:report": "playwright show-report",
-"db:seed": "tsx lib/seed.ts"
+    "db:seed": "tsx lib/seed.ts"
   },
   "dependencies": {
     "@radix-ui/react-tabs": "^1.1.12",
@@ -31,6 +31,7 @@
     "firebase": "^11.3.1",
     "firebase-admin": "^13.2.0",
     "framer-motion": "^12.4.3",
+    "iconsax-react": "^0.0.8",
     "lucide-react": "^0.469.0",
     "next": "^15.1.4",
     "pg": "^8.16.0",

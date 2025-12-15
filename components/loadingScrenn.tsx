@@ -36,14 +36,14 @@ const LoadingScreen = () => {
               secAnim ? "move-right" : " "
             }`}
           >
-            Coll
+            H
             <span className={`rect-i  ${secAnim ? "move-right-i" : ""}`}>
               <span
                 className="dot-i"
                 onAnimationEnd={handleJumpAnimation}
               ></span>
             </span>
-            ab
+            ub
           </span>
           <span className={`dot-2 ${secAnim? "bounce":" "}`}></span>
         </h1>
